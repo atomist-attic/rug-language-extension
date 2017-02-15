@@ -1,0 +1,18 @@
+---
+kind: "operation"
+client: "rug-cli 0.22.0"
+editor:
+  name: "atomist-rugs.rug-editors.ConvertExistingProjectToRugArchiveWithGenerator"
+  group: "atomist-rugs"
+  artifact: "rug-editors"
+  version: "0.8.0"
+  origin:
+    repo: "https://github.com/atomist-rugs/rug-editors.git"
+    branch: "b29e16a2eb08430790d6ef7d72ab2c199786d7c0"
+    sha: "b29e16a"
+  parameters:
+    - "rug_archive_name": "rug-language-extension"
+    - "rug_archive_group_id": "atomist-rugs"
+    - "description": "Generator for Rug language extensions"
+    - "generator_name": "NewRugLanguageExtensionProject"
+

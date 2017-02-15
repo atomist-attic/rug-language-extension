@@ -1,0 +1,10 @@
+scenario NewRugLanguageExtensionProject should create a new project based on this archive
+
+given
+  Empty
+
+when
+  NewRugLanguageExtensionProject
+
+then
+  fileExists ".atomist.yml"

@@ -1,0 +1,5 @@
+group: "atomist-rugs"
+artifact: "rug-language-extension"
+version: "0.1.0"
+requires: "[0.12.0,1.0.0)"
+dependencies:
