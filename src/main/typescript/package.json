@@ -1,0 +1,27 @@
+{
+  "name": "@atomist/rug-language-extension",
+  "version": "${project.version}",
+  "description": "TypeScript model for LanguageExtension Rug language extension",
+  "keywords": [
+    "Atomist",
+    "Rug",
+    "LanguageExtension"
+  ],
+  "author": "Atomist, Inc",
+  "license": "Apache-2.0",
+  "atomist" : {
+    "group": "com.atomist",
+    "artifact": "rug-language-extension"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atomist-rugs/rug-language-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/atomist-rugs/rug-language-extension/issues"
+  },
+  "homepage": "https://github.com/atomist-rugs/rug-language-extension#readme",
+  "dependencies": {
+    "@atomist/rug": "${rug.version}"
+  }
+}
