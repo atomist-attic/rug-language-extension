@@ -1,5 +1,5 @@
 {
-  "name": "@atomist/rug-language-extension",
+  "name": "@atomist/language_extension",
   "version": "${project.version}",
   "description": "TypeScript model for LanguageExtension Rug language extension",
   "keywords": [

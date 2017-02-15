@@ -1,5 +1,22 @@
 scenario NewRugLanguageExtensionProject should create a new project based on this archive
 
+let project_name = "smalltalk-rug-extension"
+let extension_name = "SmallTalk"
+let description = "SmallTalk language extension for Rug"
+let extension_file_ext = ".st"
+let owner = "my-rugs"
+let root_package = "com.pany"
+let version = "1.2.3-SNAPSHOT"
+
+let lc_name = { extension_name.replace(/\B[A-Z]/g, "_$1").toLowerCase() }
+let root_package_path = { root_package.replace(/\./g, "/") }
+let output_file_root = { "src/main/scala/" + root_package_path + "/rug/kind/" + lc_name + "/" + extension_name }
+let release_version = { version.replace("-SNAPSHOT", "") }
+let package_line = { "package " + root_package + ".rug.kind." + lc_name }
+let output_mv_file = { output_file_root + "MutableView.scala" }
+let output_type_file = { output_file_root + "Type.scala" }
+let test_file_root = { output_file_root.replace("/main/", "/test") }
+
 given
   Empty
 
@@ -8,3 +25,58 @@ when
 
 then
   fileExists ".atomist.yml"
+  and fileExists "README.md"
+  and fileContains "README.md" { "# " + owner + ' "' + lc_name + "'" }
+  and fileContains "README.md" description
+  and { !result.fileContains("README.md", "Rug language extension generator.") }
+  and fileContains "README.md" { "- '" + root_package + ":" + project_name + ":" + release_version + "'" }
+  and fileContains "README.md" { "https://travis-ci.org/" + owner + "/" + project_name + ".svg" }
+  and { !result.fileContains("README.md", "rug-language-extension") }
+  and fileExists "CHANGELOG.md"
+  and fileContains "CHANGELOG.md" { "[Unreleased]: https://github.com/" + owner + "/" + extension_name + "/compare/0.1.0...HEAD" }
+  and fileContains "CHANGELOG.md" { "[" + release_version + "]" }
+  and { !result.fileContains("CHANGELOG.md", "atomist-rugs") }
+  and { !result.fileContains("CHANGELOG.md", "rug-language-extension") }
+  and fileExists "pom.xml"
+  and fileContains "pom.xml" { "<groupId>" + root_package + "</groupId>" }
+  and fileContains "pom.xml" { "<version>" + version + "</version>" }
+  and fileContains "pom.xml" { "<artifactId>" + project_name + "</artifactId>" }
+  and fileContains "pom.xml" { "<name>" + project_name + "</name>" }
+  and fileContains "pom.xml" "<groupId>com.atomist</groupId>"
+  and { !result.fileExists("src/main/scala/com/atomist/rug/kind/language_extension/LanguageExtension.scala") }
+  and fileExists { output_file_root + ".scala" }
+  and fileContains { output_file_root + ".scala" } package_line
+  and { !result.fileContains(output_file_root + ".scala", "language_extension") }
+  and fileContains { output_file_root + ".scala" } { "class " + extension_name }
+  and { !result.fileContains(output_file_root + ".scala", "LanguageExtension") }
+  and { !result.fileExists("src/main/scala/com/atomist/rug/kind/language_extension/LanguageExtensionMutableView.scala") }
+  and fileExists output_mv_file
+  and fileContains output_mv_file package_line
+  and { !result.fileContains(output_mv_file, "language_extension") }
+  and fileContains output_mv_file { "object " + extension_name + "MutableView" }
+  and fileContains output_mv_file { "class " + extension_name + "MutableView" }
+  and { !result.fileContains(output_mv_file, "LanguageExtension") }
+  and fileContains output_mv_file { 'override def nodeName = "' + extension_name + '"' }
+  and { !result.fileExists("src/main/scala/com/atomist/rug/kind/language_extension/LanguageExtensionType.scala") }
+  and fileExists output_type_file
+  and fileContains output_type_file package_line
+  and { !result.fileContains(output_type_file, "language_extension") }
+  and fileContains output_type_file { "object " + extension_name + "Type" }
+  and fileContains output_type_file { "class " + extension_name + "Type" }
+  and { !result.fileContains(output_type_file, "LanguageExtension") }
+  and fileContains output_type_file { 'val languageExtensionExt = "' + extension_file_ext + '"' }
+  and fileContains output_type_file { 'override def runtimeClass = classOf[' + extension_name + 'MutableView]' }
+  and fileContains output_type_file { 'new ' + extension_name + 'MutableView' }
+  and fileExists "src/main/typescript/package.json"
+  and fileContains "src/main/typescript/package.json" { '"name": "@' + owner + '/' + lc_name + '",' }
+  and fileContains "src/main/typescript/package.json" { "https://github.com/" + owner + "/" + project_name + ".git" }
+  and { !result.fileContains("src/main/typescript/package.json", "language_extension") }
+  and { !result.fileContains("src/main/typescript/package.json", "rug-language-extension") }
+  and fileExists "src/main/typescript/tsconfig.json"
+  and fileExists "src/main/typescript/core/Core.ts"
+  and fileExists { test_file_root + "MutableViewTest.scala" }
+  and fileExists { test_file_root + "TypeTest.scala" }
+  and fileExists "CHANGELOG.md"
+  and fileExists "LICENSE"
+  and fileExists "mvnw"
+  and { !result.fileExists("CODE_OF_CONDUCT.md") }
