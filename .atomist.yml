@@ -31,3 +31,19 @@ editor:
   parameters:
     - "rug_version": "0.12.0"
 
+---
+kind: "operation"
+client: "rug-cli 0.23.0"
+editor:
+  name: "AddTypeScriptGenerator"
+  group: "atomist-rugs"
+  artifact: "rug-editors"
+  version: "0.9.0"
+  origin:
+    repo: "https://github.com/atomist-rugs/rug-editors.git"
+    branch: "82acbef9ce2c04e0cb6316b9fde702a89469a85b"
+    sha: "82acbef"
+  parameters:
+    - "generator_name": "NewRugLanguageExtensionProject"
+    - "description": "create a new Scala Rug language extension project"
+

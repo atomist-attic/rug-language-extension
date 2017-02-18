@@ -12,8 +12,11 @@ To gain access to this language extension in your Rug Archive, add to
 
 ```
 extensions:
-- 'com.atomist:rug-language-extension:0.1.0'
+- 'com.atomist:rug-language-extension:M.N.P'
 ```
+
+Where `M.N.P` is a released version (see below) of the language
+extension.
 
 ## Developing
 
