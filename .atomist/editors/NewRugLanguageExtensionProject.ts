@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-//import { dirname } from 'path';
-//import { ensureDirSync, renameSync } from '@types/fs-extra';
-
 import { PopulateProject } from '@atomist/rug/operations/ProjectGenerator';
 import { Project, File, Pom } from '@atomist/rug/model/Core';
 import { Generator, Parameter, Tags } from '@atomist/rug/operations/Decorators';
@@ -106,8 +103,6 @@ class NewRugLanguageExtensionProject implements PopulateProject {
             let oldPath = f.path()
             let newPath = this.convertPath(oldPath);
             if (newPath != oldPath) {
-                //ensureDirSync(dirname(newPath));
-                //renameSync(oldPath, newPath);
                 let newDir = newPath.split(/\/+/).splice(-1, 1).join("/");
                 project.addDirectoryAndIntermediates(newDir);
                 project.copyEditorBackingFileOrFail(oldPath, newPath);
