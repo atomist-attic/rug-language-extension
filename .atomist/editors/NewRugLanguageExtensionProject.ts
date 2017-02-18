@@ -21,7 +21,7 @@ import { Pattern } from '@atomist/rug/operations/RugOperation';
 import { PathExpression, PathExpressionEngine, TreeNode, Match } from '@atomist/rug/tree/PathExpression'
 
 @Generator("NewRugLanguageExtensionProject", "create a new Scala Rug language extension project")
-@Tags("rug")
+@Tags("rug", "scala")
 class NewRugLanguageExtensionProject implements PopulateProject {
 
     @Parameter({
