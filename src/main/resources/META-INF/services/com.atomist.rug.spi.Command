@@ -1,1 +1,0 @@
-com.atomist.rug.commands.language_extension.LanguageExtensionCommand
