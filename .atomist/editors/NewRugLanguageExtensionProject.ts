@@ -139,7 +139,7 @@ class NewRugLanguageExtensionProject implements PopulateProject {
         let travis: File = eng.scalar(project, travisPathExpression);
         travis.regexpReplace("\nenv:[\\S\\s]*\ninstall:", "\ninstall:");
         travis.regexpReplace("\nscript:.*", "\nscript: bash src/main/scripts/travis-build.bash");
-        travis.replace("- $HOME/.atomist", "- $HOME/.m2");
+        travis.replace("  - $HOME/.atomist\n", "");
     }
 
     private snakeExtensionName(): string {
