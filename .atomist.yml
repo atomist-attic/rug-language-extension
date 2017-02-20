@@ -47,3 +47,23 @@ editor:
     - "generator_name": "NewRugLanguageExtensionProject"
     - "description": "create a new Scala Rug language extension project"
 
+---
+kind: "operation"
+client: "rug-cli 0.23.0"
+editor:
+  name: "EnableTravisForRugArchiveTS"
+  group: "atomist-rugs"
+  artifact: "travis-editors"
+  version: "0.13.0"
+  origin:
+    repo: "https://github.com/atomist-rugs/travis-editors.git"
+    branch: "5899fd260998d6eb2b6780758d51356ba71b01d4"
+    sha: "5899fd2"
+  parameters:
+    - "repo_slug": "atomist-rugs/rug-language-extension"
+    - "org": ".org"
+    - "github_token": "4**************************************b"
+    - "maven_base_url": "https://atomist.jfrog.io/atomist"
+    - "maven_user": "t************h"
+    - "maven_token": "A***********************************************************************i"
+

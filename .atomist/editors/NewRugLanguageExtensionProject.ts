@@ -134,6 +134,12 @@ class NewRugLanguageExtensionProject implements PopulateProject {
         pom.removeDependency(this.root_package, "rug");
         pom.addOrReplaceDependency("com.atomist", "rug");
         pom.addOrReplaceDependencyVersion("com.atomist", "rug", rugVersion);
+
+        let travisPathExpression = new PathExpression<Project, File>("/*[@name='.travis.yml']");
+        let travis: File = eng.scalar(project, travisPathExpression);
+        travis.regexpReplace("\nenv:[\\S\\s]*\ninstall:", "\ninstall:");
+        travis.regexpReplace("\nscript:.*", "\nscript: bash src/main/scripts/travis-build.bash");
+        travis.replace("- $HOME/.atomist", "- $HOME/.m2");
     }
 
     private snakeExtensionName(): string {

@@ -102,4 +102,12 @@ then
     and fileExists "CHANGELOG.md"
     and fileExists "LICENSE"
     and fileExists "mvnw"
+    and fileExists ".travis.yml"
+    and fileContains ".travis.yml" "bash src/main/scripts/travis-build.bash"
+    and fileContains ".travis.yml" "- $HOME/.m2"
+    and { !result.fileContains(".travis.yml", "- secure:") }
+    and { !result.fileContains(".travis.yml", "bash .atomist/build/travis-build.bash") }
+    and { !result.fileContains(".travis.yml", "- $HOME/.atomist") }
+    and fileExists "src/main/scripts/travis-build.bash"
+    and fileExists "src/main/scripts/npm-publish.bash"
     and { !result.fileExists("CODE_OF_CONDUCT.md") }
