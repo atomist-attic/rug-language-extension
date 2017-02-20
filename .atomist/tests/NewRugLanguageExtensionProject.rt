@@ -46,6 +46,15 @@ then
     and fileContains "README.md" { "- '" + root_package + ":" + project_name + ":" }
     and fileContains "README.md" { "https://travis-ci.org/" + owner + "/" + project_name + ".svg" }
     and { !result.fileContains("README.md", "rug-language-extension") }
+    and { !result.fileContains("README.md", "## Rugs") }
+    and { !result.fileContains("README.md", "### NewRugLanguageExtensionProject") }
+    and { !result.fileContains("README.md", "#### Parameters") }
+    and { !result.fileContains("README.md", "#### Running") }
+    and fileContains "README.md" "## Using"
+    and fileContains "README.md" "## Developing"
+    and fileContains "README.md" "$ ./mvnw test"
+    and fileContains "README.md" "## Releasing"
+    and fileContains "README.md" "$ git tag"
     and fileExists "CHANGELOG.md"
     and fileContains "CHANGELOG.md" { "[Unreleased]: https://github.com/" + owner + "/" + project_name + "/compare/0.1.0...HEAD" }
     and { !result.fileContains("CHANGELOG.md", "atomist-rugs") }

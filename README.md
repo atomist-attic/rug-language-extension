@@ -5,6 +5,58 @@
 
 Rug language extension generator.
 
+## Rugs
+
+### NewRugLanguageExtensionProject
+
+The NewRugLanguageExtensionProject generator creates a new Rug
+language extension project.
+
+#### Prerequisites
+
+There are no prerequisites to running this generator.
+
+#### Parameters
+
+To run this generator, you must supply the following parameters.
+
+Name | Required | Default | Description
+-----|----------|---------|------------
+`project_name` | Yes | |  Valid GitHub repository name consisting of alphanumeric, ., -, and _ characters"
+`extension_name` | Yes | | [UpperCamelCase][ucc] name of the Rug language extension, usually the name of the language, e.g., "Scala"
+`description` | Yes | | A brief description of the project
+`extension_file_ext` | Yes | | The file extension, including any leading period, used to identify language files, e.g. ".scala"
+`owner` | Yes | | The GitHub repository owner, i.e., group or user owning the repository
+`root_package` | Yes | | The root Scala package for your team, e.g., "com.mycompany.myteam"
+`version` | No | 0.1.0-SNAPSHOT | [Semantic version][semver] of the project.
+
+[ucc]: http://wiki.c2.com/?UpperCamelCase
+[semver]: http://semver.org
+
+#### Running
+
+Run it as follows:
+
+```
+$ cd parent/directory
+$ rug generate atomist-rugs:rug-language-extension:NewRugLanguageExtensionProject \
+    rust-extension \
+    extension_name=Rust \
+    description="Rug language extension for Rust." \
+    extension_file_ext=.rs \
+    owner=rusty \
+    root_package=org.rust_lang \
+    version=0.1.0-SNAPSHOT
+```
+
+Note the first parameter, the `project_name`, is different in that you
+do not need to supply the name of the parameter, just the value.  This
+is because the `project_name` parameter is required for all
+generators.  This will create a directory named `rust-extension` and
+populate it with a working Rug language extension project.
+
+See the README in the generated project for further instructions.
+
 ## Using
 
 To gain access to this language extension in your Rug Archive, add to

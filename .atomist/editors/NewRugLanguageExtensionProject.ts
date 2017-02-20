@@ -103,8 +103,6 @@ class NewRugLanguageExtensionProject implements PopulateProject {
             let oldPath = f.path()
             let newPath = this.convertPath(oldPath);
             if (newPath != oldPath) {
-                let newDir = newPath.split(/\/+/).splice(-1, 1).join("/");
-                project.addDirectoryAndIntermediates(newDir);
                 project.copyEditorBackingFileOrFail(oldPath, newPath);
                 project.deleteFile(oldPath);
             }
@@ -120,15 +118,18 @@ class NewRugLanguageExtensionProject implements PopulateProject {
 
         let eng: PathExpressionEngine = project.context().pathExpressionEngine();
 
-        let releaseVersion: string = this.version.replace(/[-+].*/, "");
+        let readmePathExpression = new PathExpression<Project, File>("/*[@name='README.md']");
+        let readmeFile: File = eng.scalar(project, readmePathExpression);
+        readmeFile.regexpReplace("## Rugs[\\s\\S]*## Using", "## Using");
+
         let changeLogPathExpression = new PathExpression<Project, File>("/*[@name='CHANGELOG.md']");
-        let changeLogFile: File = eng.scalar(project, changeLogPathExpression) as any;
-        changeLogFile.regexpReplace('HEAD[\S\s]*## \[0.1.0\]', "HEAD\n\n## [0.1.0]");
+        let changeLogFile: File = eng.scalar(project, changeLogPathExpression);
+        changeLogFile.regexpReplace("HEAD[\\S\\s]*## \\[0.1.0\\]", "HEAD\n\n## [0.1.0]");
 
         let pomPathExpression = new PathExpression<Project, Pom>("/Pom()");
-        let pom: Pom = eng.scalar(project, pomPathExpression) as any;
+        let pom: Pom = eng.scalar(project, pomPathExpression);
         pom.setVersion(this.version);
-        // undo changing the rug dependency groupId from com.atomist
+        // undo replace of com.atomst in rug dependency groupId
         let rugVersion: string = pom.dependencyVersion(this.root_package, "rug");
         pom.removeDependency(this.root_package, "rug");
         pom.addOrReplaceDependency("com.atomist", "rug");
