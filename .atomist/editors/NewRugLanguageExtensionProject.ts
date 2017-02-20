@@ -110,6 +110,7 @@ class NewRugLanguageExtensionProject implements PopulateProject {
 
         project.replace("rug-language-extension", this.project_name);
         project.replace("LanguageExtension", this.extension_name);
+        project.replace("languageExtension", this.lcFirstName());
         project.replace("language_extension", this.snakeExtensionName());
         project.replace(".language_file_ext", this.extension_file_ext);
         project.replace("atomist-rugs", this.owner);
@@ -140,6 +141,10 @@ class NewRugLanguageExtensionProject implements PopulateProject {
         travis.regexpReplace("\nenv:[\\S\\s]*\ninstall:", "\ninstall:");
         travis.regexpReplace("\nscript:.*", "\nscript: bash src/main/scripts/travis-build.bash");
         travis.replace("  - $HOME/.atomist\n", "");
+    }
+
+    private lcFirstName(): string {
+        return this.extension_name[0].toLowerCase() + this.extension_name.slice(1);
     }
 
     private snakeExtensionName(): string {
