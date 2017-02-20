@@ -140,7 +140,9 @@ class NewRugLanguageExtensionProject implements PopulateProject {
         let travis: File = eng.scalar(project, travisPathExpression);
         travis.regexpReplace("\nenv:[\\S\\s]*\ninstall:", "\ninstall:");
         travis.regexpReplace("\nscript:.*", "\nscript: bash src/main/scripts/travis-build.bash");
-        travis.replace("  - $HOME/.atomist\n", "");
+        travis.regexpReplace("  - \"?\\$HOME/\\.atomist\"?\n", "");
+        travis.regexpReplace("\ndeploy:[\\S\\s]*", "\n");
+        travis.append("after_deploy:\n- bash src/main/scripts/npm-publish.bash $TRAVIS_TAG\n");
     }
 
     private lcFirstName(): string {

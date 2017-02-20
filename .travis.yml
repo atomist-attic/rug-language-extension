@@ -5,7 +5,7 @@ jdk:
 - oraclejdk8
 branches:
   except:
-  - /\+travis\d+$/
+  - "/\\+travis\\d+$/"
 env:
   global:
   - MAVEN_BASE_URL=https://atomist.jfrog.io/atomist
@@ -15,7 +15,7 @@ env:
 install:
 - nvm install 6.9.2
 - npm install -g typescript
-script: ./mvnw -B -V install && bash .atomist/build/travis-build.bash
+script: "./mvnw -B -V install && bash .atomist/build/travis-build.bash"
 notifications:
   email: false
   webhooks:
@@ -26,5 +26,12 @@ notifications:
     on_start: always
 cache:
   directories:
-  - $HOME/.atomist
-  - $HOME/.m2
+  - "$HOME/.atomist"
+  - "$HOME/.m2"
+deploy:
+  provider: releases
+  api_key:
+    secure: nYamb9P2Ea5BeufjA1uUUqHtQNeh9WSDcfN6aEXrtdl2Mu48O1NQ73eNzhuTyuPp25C7EB2g90XIMKodlga1KUTsu2rIhapdTkplgVpeeGzH9wcmg8wfkk4r7RtRBDy1MUL0Era/HI4BkyVaJ04BL2fYZptXQbgBuMN19pRrY5Wkt1TrdRhaKklA76VijcQ/XEEz0az5zrOQxo72wH1PtLlQgfwV7+bjfVnxzJnNwvkuKQyn9V+HVhALfG55mV7+q5izkOlJr1AWA/o3maZfKxC/VBE+zKCxVpSoovuqZy2JEg/MSw4Rd6mBIXo8B7bJ2ixXyhCrFbr600Xa3ZmeEZFdEioqbGZA7DQvL6maqrG8VyCiTZ4mNnxVZR7oGf4QInJ/0Iz+09+Sf1d1dBXREVD0fO3VplldLniEs2py37yssqjcLUIUVQjltpfiYPbAgvx/wz6ABKm4/JDbIw4Na71LdqGYKK+zre3Gxpfd2mm0G5nLX1HSEcl/KB+IX6cUPVRMaduC86Eum8SXifvhDOGlP+YU2vKZo87NvTCZ4WfE/QmZp+3NkWk1tGB3CqKI+yNmRSQ+a0IAF4bPqRQDAYzxrVVJbgdBJ22c/+swlTG1fh2Pkr3aJHkA3QLmaCw7+23TCnykXsr+Tm1CHtJfjchI1NPtjPRLzmng8yb6yvI=
+  on:
+    tags: true
+    condition: "$TRAVIS_TAG =~ ^[0-9]+\\.[0-9]+\\.[0-9]+$"
